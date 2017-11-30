@@ -73,7 +73,7 @@ class cerebro::install (
   } else {
     file { '/etc/init.d/cerebro':
       content => template('cerebro/etc/init.d/cerebro.erb'),
-      mode    => 0744,
+      mode    => '0744',
     }
   }
 
