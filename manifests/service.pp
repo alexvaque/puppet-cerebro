@@ -12,7 +12,7 @@ class cerebro::service (
     service { 'cerebro.service':
       ensure  => 'running',
       #restart => '/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf',
-      start   => '/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf',
+      start   => '/usr/bin/nohup /opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf',
       #status  => '',
       #stop    => '',
     }
