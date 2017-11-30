@@ -10,10 +10,10 @@ class cerebro::service (
     }
   } else {
     service { 'cerebro.service':
-      ensure  => 'running',
+      ensure => $ensure,
+      enable => $enable,
       restart => '/etc/init.d/cerebro restart',
       start   => '/etc/init.d/cerebro start',
-      status  => '/etc/init.d/cerebro status',
       stop    => '/etc/init.d/cerebro stop',
     }
   }
