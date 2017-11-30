@@ -1,0 +1,16 @@
+[Unit]
+Description=Cerebro: Elasticsearch web admin tool
+Documentation=https://github.com/lmenezes/cerebro
+
+[Service]
+WorkingDirectory=/opt/cerebro
+User=<%= @user %>
+Group=<%= @group %>
+PIDFile=/var/run/cerebro/cerebro.pid
+EnvironmentFile=-<%= @sysconfig %>
+ExecStart=/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf
+ExecReload=/bin/kill -HUP $MAINPID
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

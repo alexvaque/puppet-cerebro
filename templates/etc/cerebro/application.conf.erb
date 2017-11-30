@@ -1,0 +1,23 @@
+secret = "<%= @secret %>"
+basePath = "<%= @basepath %>"
+pidfile.path = "/var/run/cerebro/cerebro.pid"
+rest.history.size = 50
+data.path = "/var/cerebro/cerebro.db"
+auth: {
+<% if @basic_auth_settings -%>
+  type: basic
+  settings: {
+<% @basic_auth_settings.each do |k,v| -%>
+    <%= k %> = "<%= v %>"
+<% end -%>
+  }
+<% end -%>
+}
+hosts = [
+<% @hosts.each do |host| -%>
+  {
+    host = "<%= host['host'] %>"
+    name = "<%= host['name'] %>"
+  },
+<% end -%>
+]
