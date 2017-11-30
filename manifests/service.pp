@@ -9,7 +9,7 @@ class cerebro::service (
       enable => $enable,
     }
   } else {
-    service { 'cerebro.service':
+    service { 'cerebro':
       ensure => $ensure,
       enable => $enable,
       restart => '/etc/init.d/cerebro restart',
