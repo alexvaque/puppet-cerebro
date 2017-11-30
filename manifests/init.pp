@@ -29,6 +29,6 @@ class cerebro (
   -> Class['cerebro::config']
   ~> Class['cerebro::service']
 
-  Class['cerebro::install']
-  ~> Class['cerebro::service']
+  #  Class['cerebro::install']
+  #~> Class['cerebro::service']
 }
