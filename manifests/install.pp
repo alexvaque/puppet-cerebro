@@ -70,7 +70,10 @@ class cerebro::install (
 		::systemd::unit_file { 'cerebro.service':
       content => template('cerebro/etc/systemd/system/cerebro.service.erb'),
     }
+  } else {
+    file { '/etc/init.d/cerebro.sh':
+      content => template('cerebro/etc/init.d/cerebro.sh.erb'),
+    }
   }
-
 
 }

@@ -11,10 +11,10 @@ class cerebro::service (
   } else {
     service { 'cerebro.service':
       ensure  => 'running',
-      #restart => '/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf',
-      start   => '/usr/bin/nohup /opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf',
+      restart => '/etc/init.d/cerebro.sh restart',
+      start   => '/etc/init.d/cerebro.sh start',
       #status  => '',
-      #stop    => '',
+      stop    => '/etc/init.d/cerebro.sh stop',
     }
   }
 
