@@ -69,7 +69,7 @@ class cerebro::install (
   case $::osfamily {
     'RedHat': {
       if ($::operatingsystem == 'Amazon') {
-		    service { 'nutcracker':
+		    service { 'cerebro.service':
           ensure  => 'running',
           restart => '/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf',
           start   => '/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf',
