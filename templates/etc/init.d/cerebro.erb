@@ -16,6 +16,7 @@ RUNAS=root
 DAEMON=/opt/cerebro/bin/cerebro
 
 PIDFILE=/var/run/cerebro/cerebro.pid
+PIDAPPFILE=/var/run/cerebro/cerebro.pid
 LOGFILE=/var/log/cerebro/sysv_application.log
 
 start() {
@@ -31,6 +32,10 @@ start() {
 
 stop() {
   if [ ! -f "$PIDFILE" ] || ! kill -0 $(cat "$PIDFILE"); then
+    echo 'Service not running' >&2
+    return 1
+  fi
+  if [ ! -f "$PIDAPPFILE" ] || ! kill -0 $(cat "$PIDAPPFILE"); then
     echo 'Service not running' >&2
     return 1
   fi
