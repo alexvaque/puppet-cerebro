@@ -65,7 +65,24 @@ class cerebro::install (
     content => template('cerebro/etc/tmpfiles.d/cerebro.conf.erb'),
   }
 
-  ::systemd::unit_file { 'cerebro.service':
-    content => template('cerebro/etc/systemd/system/cerebro.service.erb'),
+
+  case $::osfamily {
+    'RedHat': {
+      if ($::operatingsystem == 'Amazon') {
+		    service { 'nutcracker':
+          ensure  => 'running',
+          restart => '/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf',
+          start   => '/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf',
+          #status  => '',
+          #stop    => '',
+        }
+      } else {
+		    ::systemd::unit_file { 'cerebro.service':
+          content => template('cerebro/etc/systemd/system/cerebro.service.erb'),
+        }
+      }
+    }
   }
+
+
 }
