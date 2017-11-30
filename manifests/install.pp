@@ -71,7 +71,7 @@ class cerebro::install (
       if ($::operatingsystem == 'Amazon') {
 		    service { 'cerebro.service':
           ensure  => 'running',
-          restart => '/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf',
+          #restart => '/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf',
           start   => '/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf',
           #status  => '',
           #stop    => '',
