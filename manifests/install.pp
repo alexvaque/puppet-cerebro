@@ -71,8 +71,9 @@ class cerebro::install (
       content => template('cerebro/etc/systemd/system/cerebro.service.erb'),
     }
   } else {
-    file { '/etc/init.d/cerebro.sh':
-      content => template('cerebro/etc/init.d/cerebro.sh.erb'),
+    file { '/etc/init.d/cerebro':
+      content => template('cerebro/etc/init.d/cerebro.erb'),
+      mode    => 0744,
     }
   }
 

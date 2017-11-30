@@ -8,8 +8,12 @@
 # Description:       <DESCRIPTION>
 ### END INIT INFO
 
-SCRIPT=/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf
+NAME=cerebro
+SCRIPT="/opt/cerebro/bin/cerebro -Dconfig.file=/etc/cerebro/application.conf"
 RUNAS=root
+
+# creating
+DAEMON=/opt/cerebro/bin/cerebro
 
 PIDFILE=/var/run/cerebro/cerebro.pid
 LOGFILE=/var/log/cerebro/sysv_application.log
@@ -48,6 +52,22 @@ uninstall() {
   fi
 }
 
+status() {
+  # Check the status of the process.
+  if [ -e $PIDFILE ]; then
+      if pidofproc -p $PIDFILE $DAEMON > /dev/null; then
+          log_success_msg "$NAME Process is running"
+          exit 0
+      else
+          log_failure_msg "$NAME Process is not running"
+          exit 1
+      fi
+  else
+      log_failure_msg "$NAME Process is not running"
+      exit 3
+  fi
+}
+
 case "$1" in
   start)
     start
@@ -57,6 +77,9 @@ case "$1" in
     ;;
   uninstall)
     uninstall
+    ;;
+  status)
+    status
     ;;
   retart)
     stop
