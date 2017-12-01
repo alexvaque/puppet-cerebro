@@ -15,7 +15,7 @@ RUNAS=root
 # creating
 DAEMON=/opt/cerebro/bin/cerebro
 
-PIDFILE=/var/run/cerebro/cerebro.pid
+PIDFILE=/var/run/cerebro/cerebro2.pid
 PIDAPPFILE=/var/run/cerebro/cerebro.pid
 LOGFILE=/var/log/cerebro/sysv_application.log
 
@@ -31,17 +31,30 @@ start() {
 }
 
 stop() {
+  /bin/sleep 2
   if [ ! -f "$PIDFILE" ] || ! kill -0 $(cat "$PIDFILE"); then
     echo 'Service not running' >&2
     return 1
   fi
+  /bin/sleep 2
   if [ ! -f "$PIDAPPFILE" ] || ! kill -0 $(cat "$PIDAPPFILE"); then
     echo 'Service not running' >&2
     return 1
   fi
   echo 'Stopping service…' >&2
-  kill -15 $(cat "$PIDFILE") && rm -f "$PIDFILE"
+  kill -15 $(cat "$PIDFILE") && rm -f "$PIDFILE" >&2
+  kill -15 $(cat "$PIDAPPFILE") && rm -f "$PIDAPPFILE" >&2
   echo 'Service stopped' >&2
+}
+
+rh_status() {
+  if [ ! -f "$PIDFILE" ] || [ ! -f "$PIDAPPFILE" ]; then
+    echo 'Service is not running' >&2
+    return 1
+  else 
+    echo 'Service is running'
+    return 0
+  fi
 }
 
 uninstall() {
@@ -83,9 +96,9 @@ case "$1" in
   uninstall)
     uninstall
     ;;
-#  status)
-#    status
-#    ;;
+  status)
+    rh_status
+    ;;
   retart)
     stop
     start
@@ -93,4 +106,5 @@ case "$1" in
   *)
     echo "Usage: $0 {start|stop|restart|uninstall}"
 esac
+
 
