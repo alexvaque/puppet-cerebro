@@ -66,14 +66,14 @@ class cerebro::install (
   }
 
 
-  if !($::operatingsystem == 'Amazon') {
-		::systemd::unit_file { 'cerebro.service':
-      content => template('cerebro/etc/systemd/system/cerebro.service.erb'),
-    }
-  } else {
+  if ($::operatingsystem == 'Amazon') {
     file { '/etc/init.d/cerebro':
       content => template('cerebro/etc/init.d/cerebro.erb'),
       mode    => '0744',
+    }
+  } else {
+    ::systemd::unit_file { 'cerebro.service':
+      content => template('cerebro/etc/systemd/system/cerebro.service.erb'),
     }
   }
 
