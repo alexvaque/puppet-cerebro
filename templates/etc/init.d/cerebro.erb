@@ -70,22 +70,6 @@ uninstall() {
   fi
 }
 
-#status() {
-#  # Check the status of the process.
-#  if [ -e $PIDFILE ]; then
-#      if pidofproc -p $PIDFILE $DAEMON > /dev/null; then
-#          log_success_msg "$NAME Process is running"
-#          exit 0
-#      else
-#          log_failure_msg "$NAME Process is not running"
-#          exit 1
-#      fi
-#  else
-#      log_failure_msg "$NAME Process is not running"
-#      exit 3
-#  fi
-#}
-
 case "$1" in
   start)
     start
